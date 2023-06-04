@@ -16,5 +16,13 @@ To view Pomo's commands, simply type "!pomo help". The main Pomo command is "!po
 
 ### Project Challenges and Lessons
 
+Challenges:
+1. Pomo is a project I started in the summer of 2021 and continued to work on every summer. During the summer of 2021, I had little to no Javascript knowledge and struggled significantly to work on the project. I abandoned the project but returned to it the next summer. Fortunately, I had gained much more Javascript knowledge at that point and was able to create a functioning bot. My goal this summer was to refine my code through static and dynamic code analysis. Unfortunately, I had lost all my previous code due to a data reset. I plan to fully code the bot again and to create an even more refined and improved version of Pomo.
+
+
+Lessons:
+1. Developed Pomo using Agile development processes.
+2. Used Linters for static code analysis.
+
 
 
