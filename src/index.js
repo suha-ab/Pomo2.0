@@ -34,9 +34,8 @@ client.once(Events.ClientReady, c => {
 // Command Handler (Command Event Listener)
 client.on(Events.InteractionCreate, async interaction => {
     if(interaction.isChatInputCommand()){
-        const command = interaction.client.commands.get(interaction.commandName)
-        
-        // Match command to collection
+        const command = interaction.client.commands.get(interaction.commandName) // Match command to collection
+
         if(!command) {
             console.error(`No command named ${interaction.commandName} was found.`)
         }
