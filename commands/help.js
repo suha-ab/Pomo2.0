@@ -36,5 +36,5 @@ const helpEmbed = new EmbedBuilder()
 .setDescription("A list of Pomo's supported commands:")
 .setColor('ec3946')
 .addFields(
-    {name: "🍅 About", value: "learn more about Pomo!\b ➡️ Use /about to try me."}
+    {name: "🍅 About", value: "learn more about Pomo!\n ➡️ Use /about to try me."}
 )
