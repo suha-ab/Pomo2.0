@@ -1,4 +1,4 @@
-const { ComponentType, InteractionResponse, EmbedFooterData, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, EmbedBuilder, ButtonStyle } = require('discord.js')
+const { ComponentType, InteractionResponse, EmbedFooterData, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, EmbedBuilder, ButtonStyle, ButtonInteraction } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,12 +11,12 @@ module.exports = {
         const collector = response.createMessageComponentCollector({componentType: ComponentType.Button, time : 3_600_000});
 
         // Event Listener
-        collector.on('collect', async i => {
-            const buttonId = i.customId;
+        collector.on('collect', async buttonInteraction => {
+            const buttonId = buttonInteraction.customId;
             if (buttonId === 'next')
-                await interaction.editReply({embeds: [helpEmbed2], components:[row]})
+                await buttonInteraction.update({embeds: [helpEmbed2], components:[row]})
             else
-                await interaction.editReply({embeds: [helpEmbed1], components: [row]})
+                await buttonInteraction.update({embeds: [helpEmbed1], components: [row]})
         })
 
 
