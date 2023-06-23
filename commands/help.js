@@ -74,8 +74,8 @@ const helpEmbed1 = new EmbedBuilder()
     {name:"🍅 Stop", value: "stops the user's current pomodoro cycle (must have an active cycle). \n ➡️ Use \"/stop\" to try me."},
     {name: "🍅 Pause", value: "pauses the user's current pomodoro cycle (must have an active cycle). \n ➡️ Use \"/pause\" to try me."},
     {name:"🍅 Restart", value: "restarts the user's current pomodoro cycle (must have an active cycle).\n  Use \"/restart\" to try me."},
-    {name: "Page 1 of 2", value: " "}
 )
+.setFooter({text:'Page 1 of 2'})
 
 
 const helpEmbed2 = new EmbedBuilder()
@@ -85,5 +85,5 @@ const helpEmbed2 = new EmbedBuilder()
 .addFields(
     {name:"🍅 Time", value: "displays the remaining time in a current pomo (must have an active pomo).\n ➡️ Use \"/time\" to try me."},
     {name:"🍅 Resume",value: "resumes a paused pomo (must have an active pomo).\n ➡️ Use \"/resume\" to try me."},
-    {name: "Page 2 of 2", value: " "}
 )
+.setFooter({text: 'Page 2 of 2'})
