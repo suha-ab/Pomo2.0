@@ -5,7 +5,7 @@ module.exports = {
     .setName('help')
     .setDescription('A list of Pomo\'s commands and their use.'),
     async execute(interaction){
-        const response = await interaction.reply({embeds: [helpEmbed1], components: [row]})
+        const response = await interaction.reply({embeds: [helpEmbed1], components: [row1]})
 
         // Component Collector 
         const collector = response.createMessageComponentCollector({componentType: ComponentType.Button, time : 3_600_000});
@@ -14,9 +14,9 @@ module.exports = {
         collector.on('collect', async buttonInteraction => {
             const buttonId = buttonInteraction.customId;
             if (buttonId === 'next')
-                await buttonInteraction.update({embeds: [helpEmbed2], components:[row]})
+                await buttonInteraction.update({embeds: [helpEmbed2], components:[row2]})
             else
-                await buttonInteraction.update({embeds: [helpEmbed1], components: [row]})
+                await buttonInteraction.update({embeds: [helpEmbed1], components: [row1]})
         })
 
 
@@ -28,19 +28,34 @@ module.exports = {
 }
 
 // Building Buttons
-const prev = new ButtonBuilder()
+const prev1 = new ButtonBuilder()
+    .setCustomId('prev')
+    .setLabel("◀️")
+    .setStyle(ButtonStyle.Primary)
+    .setDisabled(true);
+
+const prev2 = new ButtonBuilder()
     .setCustomId('prev')
     .setLabel("◀️")
     .setStyle(ButtonStyle.Primary);
 
-const next = new ButtonBuilder()
+
+
+const next1 = new ButtonBuilder()
     .setCustomId("next")
     .setLabel("▶️")
     .setStyle(ButtonStyle.Primary);
 
+const next2 = new ButtonBuilder()
+    .setCustomId("next")
+    .setLabel("▶️")
+    .setStyle(ButtonStyle.Primary)
+    .setDisabled(true);
+
 
  // Building Row
- const row = new ActionRowBuilder().addComponents(prev,next);
+ const row1 = new ActionRowBuilder().addComponents(prev1,next1);
+ const row2 = new ActionRowBuilder().addComponents(prev2,next2);
 
  // Building Footer
  //const helpFooter = new EmbedFooterData("Page 1 of 2")
