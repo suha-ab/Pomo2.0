@@ -1,11 +1,25 @@
-const { EmbedFooterData, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, EmbedBuilder, ButtonStyle } = require('discord.js')
+const { ComponentType, InteractionResponse, EmbedFooterData, ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, EmbedBuilder, ButtonStyle } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('help')
     .setDescription('A list of Pomo\'s commands and their use.'),
     async execute(interaction){
-        await interaction.reply({embeds: [helpEmbed], components: [row]})
+        const response = await interaction.reply({embeds: [helpEmbed1], components: [row]})
+
+        // Component Collector 
+        const collector = response.createMessageComponentCollector({componentType: ComponentType.Button, time : 3_600_000});
+
+        // Event Listener
+        collector.on('collect', async i => {
+            const buttonId = i.customId;
+            if (buttonId === 'next')
+                await interaction.editReply({embeds: [helpEmbed2], components:[row]})
+            else
+                await interaction.editReply({embeds: [helpEmbed1], components: [row]})
+        })
+
+
     }
 
 
@@ -34,7 +48,7 @@ const next = new ButtonBuilder()
 
 
  // Building Embed
-const helpEmbed = new EmbedBuilder()
+const helpEmbed1 = new EmbedBuilder()
 .setTitle('Pomo\'s Commands')
 .setDescription("A list of Pomo's supported commands:")
 .setColor('ec3946')
@@ -46,4 +60,15 @@ const helpEmbed = new EmbedBuilder()
     {name: "🍅 Pause", value: "pauses the user's current pomodoro cycle (must have an active cycle). \n ➡️ Use \"/pause\" to try me."},
     {name:"🍅 Restart", value: "restarts the user's current pomodoro cycle (must have an active cycle).\n  Use \"/restart\" to try me."},
     {name: "Page 1 of 2", value: " "}
+)
+
+
+const helpEmbed2 = new EmbedBuilder()
+.setTitle('Pomo\'s Commands')
+.setDescription("A list of Pomo's supported commands:")
+.setColor('ec3946')
+.addFields(
+    {name:"🍅 Time", value: "displays the remaining time in a current pomo (must have an active pomo).\n ➡️ Use \"/time\" to try me."},
+    {name:"🍅 Resume",value: "resumes a paused pomo (must have an active pomo).\n ➡️ Use \"/resume\" to try me."},
+    {name: "Page 2 of 2", value: " "}
 )
