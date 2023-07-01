@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { printHello } = require('../src/pomo.js');
-require('../src/pomo.js')
+const Pomo = require('../src/pomo');
 //import {myPomos} from '../src/pomo.js'
 
 const myPomos = [];
@@ -9,10 +8,11 @@ const myPomos = [];
 function startCommad(interaction){
         const currTime = Date.now()
         console.log(myPomos);
-        console.log(printHello)
-        const newPomo = createPomo(interaction)
-        myPomos.push(newPomo)
+        Pomo.printHello()
+        myPomos.push(new Pomo(interaction))
         myPomos[myPomos.length - 1].startTimer();
+        console.log(myPomos)
+
 }
 
 
