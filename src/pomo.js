@@ -1,4 +1,4 @@
-
+const { EmbedBuilder } = require('discord.js')
     module.exports  =     
     // Pomo = 25 - 5 - 25 - 5 - 25 - 5 - 25 - 15
     class Pomo {
@@ -17,10 +17,15 @@
         }
     
         startTimer(){
+            const finishEmbed = new EmbedBuilder()
+            .setTitle(`${interaction.member.nickname}'s Pomo has finished!`)
+            .setDescription(`Your Pomo has just finished, time for a break!`)
+            .setColor('ec3946')
+
             // run timer for 25 mins
             setTimeout(()=>{
                 this.incrementPomo();
-                this.interaction.followUp("First timer finished.")
+                this.interaction.followUp({embeds: [finishEmbed]})
             },(10000))
         }
     
