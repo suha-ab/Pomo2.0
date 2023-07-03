@@ -27,8 +27,8 @@ const { EmbedBuilder } = require('discord.js')
                 this.incrementPomo();
                 this.interaction.followUp({embeds: [finishEmbed]})
                 myPomos.shift()
-                console.log(`myPomos after shift`)
-                console.log(myPomos)
+                //console.log(`myPomos after shift`)
+                //console.log(myPomos)
             },(10000))
         }
 
