@@ -16,7 +16,7 @@ const { EmbedBuilder } = require('discord.js')
             this.numOfPomos += 1;
         }
     
-        startTimer(){
+        startTimer(myPomos){
             const finishEmbed = new EmbedBuilder()
             .setTitle(`${this.interaction.member.nickname}'s Pomo has finished!`)
             .setDescription(`Your Pomo has just finished, time for a break!`)
@@ -26,6 +26,9 @@ const { EmbedBuilder } = require('discord.js')
             setTimeout(()=>{
                 this.incrementPomo();
                 this.interaction.followUp({embeds: [finishEmbed]})
+                myPomos.shift()
+                console.log(`myPomos after shift`)
+                console.log(myPomos)
             },(10000))
         }
 

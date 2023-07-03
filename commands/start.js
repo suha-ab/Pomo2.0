@@ -5,12 +5,12 @@ const Pomo = require('../src/pomo');
 const myPomos = [];
 
 
-function startCommad(interaction){
+function startCommad(interaction,myPomos){
         const currTime = Date.now()
         myPomos.push(new Pomo(interaction))
-        myPomos[myPomos.length - 1].startTimer();
+        //console.log(`myPomos after push`)
         //console.log(myPomos)
-
+        myPomos[myPomos.length - 1].startTimer(myPomos);
 }
 function createstartEmbed(interaction){
     //console.log(interaction.member)
@@ -38,13 +38,11 @@ module.exports = {
     .setDescription('Starts 1 Pomodoro timer.'),
     async execute(interaction){
         const userName = interaction.user.username
-        console.log(userName)
+        //console.log(userName)
         var found = false;
 
         // check if user already has an open pomo
         for (pomo of myPomos){
-            console.log(`console log pomo is ${pomo}`)
-            console.log(`log myPomos here: ${myPomos}`)
             if (pomo.interaction.user.username === userName){
                 interaction.reply({embeds: [createalreadyExistsEmbed(interaction)]})
                 found = true;
@@ -54,7 +52,7 @@ module.exports = {
 
         if (found == false){
         // if user has no existing pomo
-        startCommad(interaction)
+        startCommad(interaction,myPomos)
         await interaction.reply({embeds: [createstartEmbed(interaction)]});
         }
     }
