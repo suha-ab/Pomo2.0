@@ -18,7 +18,7 @@ const { EmbedBuilder } = require('discord.js')
     
         startTimer(){
             const finishEmbed = new EmbedBuilder()
-            .setTitle(`${interaction.member.nickname}'s Pomo has finished!`)
+            .setTitle(`${this.interaction.member.nickname}'s Pomo has finished!`)
             .setDescription(`Your Pomo has just finished, time for a break!`)
             .setColor('ec3946')
 
