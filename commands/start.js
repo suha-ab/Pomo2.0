@@ -7,8 +7,6 @@ const myPomos = [];
 
 function startCommad(interaction){
         const currTime = Date.now()
-        //console.log(myPomos);
-        Pomo.printHello()
         myPomos.push(new Pomo(interaction))
         myPomos[myPomos.length - 1].startTimer();
         //console.log(myPomos)
@@ -23,6 +21,14 @@ function createstartEmbed(interaction){
     return startEmbed;
 }
 
+function createalreadyExistsEmbed(interaction){
+    const alreadyExistsEmbed = new EmbedBuilder()
+    .setTitle(`${interaction.member.nickname}'s Pomo already exits.`)
+    .setDescription("Your Pomo already exists. You can start a new pomo using /restart.")
+    .setColor('ec3946')
+    return alreadyExistsEmbed;
+}
+
 
 
 
@@ -31,9 +37,26 @@ module.exports = {
     .setName('start')
     .setDescription('Starts 1 Pomodoro timer.'),
     async execute(interaction){
+        const userName = interaction.user.username
+        console.log(userName)
+        var found = false;
+
+        // check if user already has an open pomo
+        for (pomo of myPomos){
+            console.log(`console log pomo is ${pomo}`)
+            console.log(`log myPomos here: ${myPomos}`)
+            if (pomo.interaction.user.username === userName){
+                interaction.reply({embeds: [createalreadyExistsEmbed(interaction)]})
+                found = true;
+                break;
+            }
+        }
+
+        if (found == false){
+        // if user has no existing pomo
         startCommad(interaction)
         await interaction.reply({embeds: [createstartEmbed(interaction)]});
-
+        }
     }
 
 

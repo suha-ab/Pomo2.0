@@ -28,6 +28,10 @@ const { EmbedBuilder } = require('discord.js')
                 this.interaction.followUp({embeds: [finishEmbed]})
             },(10000))
         }
+
+        getInteraction(){
+            return this.interaction;
+        }
     
         static printHello(){
             console.log("hello")
