@@ -2,8 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const Pomo = require('../src/pomo');
 //import {myPomos} from '../src/pomo.js'
 
-const myPomos = [];
-
+const myPomos = require('../src/pomoArray')
 
 function startCommad(interaction,myPomos){
         const currTime = Date.now()
