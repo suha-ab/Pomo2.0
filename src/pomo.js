@@ -2,18 +2,25 @@ const { EmbedBuilder } = require('discord.js')
     module.exports  =     
     
     class Pomo {
-        constructor(interaction, currTimeoutInterval, currStartTime, remainingTime, numOfPomos) {
+        constructor(interaction, currTimeoutInterval, currStartTime, currEndTime, remainingTime, numOfPomos) {
             this.interaction = interaction;
             this.currTimeoutInterval = currTimeoutInterval;
             this.currStartTime = currStartTime;
+            this.currEndTime = currEndTime;
             this.remainingTime = remainingTime;
             this.numOfPomos = numOfPomos;
-        /*  
-            const username = user;
-            const startTime = start;
-            const endTime = end;
-            const numOfPomos = numOPomos; 
-        */
+        }
+
+        static getLongBreakTime(){
+            return (2 * 60 * 1000)
+        }
+
+        static getshortBreakTime(){
+            return (1 * 60 * 1000)
+        }
+
+        static getPomoTime(){
+            return (3 * 60 * 1000)
         }
     
         decrementPomo() {
@@ -25,16 +32,18 @@ const { EmbedBuilder } = require('discord.js')
             if(this.numOfPomos == 0) return this.interaction.followUp({embeds: [this.createFinishEmbed()]})
             else if (this.numOfPomos == 1){
                 this.currStartTime = Date.now()
+                this.currEndTime = this.currStartTime + Pomo.getLongBreakTime()
 
                 // numOfPomos: Odd + == 1 -> 15 Min (long break)
                 this.currTimeoutInterval = setTimeout(()=>{
                     this.decrementPomo()
                     myPomos.shift() // needs corrections <- If another pomo starts before this one finishes, it will be shifted
                     this.startTimer(myPomos)
-                },(2 * 60 * 1000))
+                },(Pomo.getLongBreakTime()))
             }
             else if (this.numOfPomos % 2 == 0){
                 this.currStartTime = Date.now()
+                this.currEndTime = this.currStartTime + Pomo.getPomoTime()
 
                 // numOfPomos: Even -> 25 Min (pomodoro)
                 this.currTimeoutInterval = setTimeout(()=>{
@@ -42,24 +51,27 @@ const { EmbedBuilder } = require('discord.js')
                     if(this.numOfPomos == 1) this.interaction.followUp({embeds : [this.createLongBreakEmbed()]})
                     else this.interaction.followUp({embeds: [this.createShortBreakEmbed()]})
                     this.startTimer(myPomos)
-                },(3 * 60 * 1000))
+                },(Pomo.getPomoTime()))
             }
             else{
+                console.log("I am here")
                 this.currStartTime = Date.now()
+                this.currEndTime = this.currStartTime + Pomo.getshortBreakTime()
 
                 // numOfPomos: Odd + == 1 -> 5 Min (short break)
                 this.currTimeoutInterval = setTimeout(()=>{
                     this.decrementPomo()
                     this.interaction.followUp({embeds: [this.createPomoEmbed()]})
                     this.startTimer(myPomos)
-                },(1 * 60 * 1000))
+                },(Pomo.getshortBreakTime()))
             }
         }
 
         pauseTimer(){
             // update remainingTime, clear interval, send embed
-            this.remainingTime = Date.now() - this.currStartTime
             clearInterval(this.currTimeoutInterval)
+            this.remainingTime = this.currEndTime - this.currStartTime
+            //console.log(`Remaining Time (${this.remainingTime}) = ${this.currEndTime} - ${this.currStartTime}`)
         }
         
         resumeTimer(){
@@ -71,10 +83,6 @@ const { EmbedBuilder } = require('discord.js')
             return this.interaction;
         }
     
-        static printHello(){
-            console.log("hello")
-        }
-
         createFinishEmbed(){
             return new EmbedBuilder()
             .setTitle(`${this.interaction.member.nickname}'s Pomo has finished!`)

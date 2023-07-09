@@ -5,7 +5,7 @@ const Pomo = require('../src/pomo');
 const myPomos = require('../src/pomoArray')
 
 function startCommad(interaction,myPomos){
-        myPomos.push(new Pomo(interaction, 0, 0, 0, 8))
+        myPomos.push(new Pomo(interaction, 0, 0, 0, 0, 8))
         //console.log(`myPomos after push`)
         //console.log(myPomos)
         myPomos[myPomos.length - 1].startTimer(myPomos);
@@ -22,7 +22,7 @@ function createstartEmbed(interaction){
 function createalreadyExistsEmbed(interaction){
     const alreadyExistsEmbed = new EmbedBuilder()
     .setTitle(`${interaction.member.nickname}'s Pomo already exits.`)
-    .setDescription("Your Pomo already exists. You can start a new pomo using /restart.")
+    .setDescription("Your Pomo already exists. You can start a new pomo using /restart or resume your current one using /resume.")
     .setColor('ec3946')
     return alreadyExistsEmbed;
 }
