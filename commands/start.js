@@ -5,8 +5,7 @@ const Pomo = require('../src/pomo');
 const myPomos = require('../src/pomoArray')
 
 function startCommad(interaction,myPomos){
-        const currTime = Date.now()
-        myPomos.push(new Pomo(interaction))
+        myPomos.push(new Pomo(interaction, 0, 0, 0, 8))
         //console.log(`myPomos after push`)
         //console.log(myPomos)
         myPomos[myPomos.length - 1].startTimer(myPomos);

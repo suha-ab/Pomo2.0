@@ -32,7 +32,8 @@ module.exports = {
             // 2. If It Exists, pause the timer. Else, return "no pomo exists" message
             for(pomo of myPomos){
                 if (pomo.interaction.user.username == interaction.user.username){
-                    interaction.reply({embeds: [createNoSuchPomoEmbed(interaction)]})
+                    pomo.pauseTimer()
+                    interaction.reply({embeds: [createPomoFoundEmbed(interaction)]})
                     found = true
                     break
                 }
