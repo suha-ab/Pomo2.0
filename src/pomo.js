@@ -76,7 +76,7 @@ const { EmbedBuilder } = require('discord.js')
         
         resumeTimer(){
             // do remaining time in current timer then call startTimer
-
+            console.log("Resume lol")
         }
 
         getInteraction(){
