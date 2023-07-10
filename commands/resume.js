@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const myPomos = require('../src/pomoArray')
 
 function createPomoFoundEmbed(interaction){
     return new EmbedBuilder()
@@ -27,7 +28,7 @@ module.exports = {
             // 2. If It Exists, pause the timer. Else, return "no pomo exists" message
             for(pomo of myPomos){
                 if (pomo.interaction.user.username == interaction.user.username){
-                    pomo.resumeTimer()
+                    pomo.resumeTimer(myPomos)
                     interaction.reply({embeds: [createPomoFoundEmbed(interaction)]})
                     found = true
                     break

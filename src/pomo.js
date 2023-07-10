@@ -54,7 +54,6 @@ const { EmbedBuilder } = require('discord.js')
                 },(Pomo.getPomoTime()))
             }
             else{
-                console.log("I am here")
                 this.currStartTime = Date.now()
                 this.currEndTime = this.currStartTime + Pomo.getshortBreakTime()
 
@@ -74,9 +73,27 @@ const { EmbedBuilder } = require('discord.js')
             //console.log(`Remaining Time (${this.remainingTime}) = ${this.currEndTime} - ${this.currStartTime}`)
         }
         
-        resumeTimer(){
+        resumeTimer(myPomos){
             // do remaining time in current timer then call startTimer
-            console.log("Resume lol")
+            var afterResumeEmbed = new EmbedBuilder()
+            
+            if((this.numOfPomos - 1) == 1){
+                afterResumeEmbed = this.createLongBreakEmbed()
+            }
+            else if ((this.numOfPomos -1 ) % 2 == 0){
+                afterResumeEmbed = this.createPomoEmbed()
+            }
+            else{
+                afterResumeEmbed = this.createShortBreakEmbed()
+            }
+
+            this.currStartTime = Date.now()
+            this.currEndTime = this.currStartTime + this.remainingTime
+            this.currTimeoutInterval = setTimeout(()=> {
+                this.decrementPomo()
+                this.interaction.followUp({embeds: [afterResumeEmbed]})
+                this.startTimer(myPomos)
+            },(this.remainingTime))
         }
 
         getInteraction(){
