@@ -96,6 +96,10 @@ const { EmbedBuilder } = require('discord.js')
             },(this.remainingTime))
         }
 
+        stopTimer(myPomos){
+            console.log("stop timer function")
+        }
+
         getInteraction(){
             return this.interaction;
         }
