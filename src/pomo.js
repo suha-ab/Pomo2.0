@@ -1,4 +1,5 @@
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
+const myPomos = require('./pomoArray');
     module.exports  =     
     
     class Pomo {
@@ -12,15 +13,15 @@ const { EmbedBuilder } = require('discord.js')
         }
 
         static getLongBreakTime(){
-            return (2 * 60 * 1000)
+            return (2 * 10 * 1000)
         }
 
         static getshortBreakTime(){
-            return (1 * 60 * 1000)
+            return (1 * 10 * 1000)
         }
 
         static getPomoTime(){
-            return (3 * 60 * 1000)
+            return (3 * 10 * 1000)
         }
     
         decrementPomo() {
@@ -99,6 +100,13 @@ const { EmbedBuilder } = require('discord.js')
         stopTimer(myPomos){
             clearInterval(this.currTimeoutInterval)
             myPomos.shift()
+        }
+
+        restartTimer(myPomos){
+            this.numOfPomos = 8
+            this.remainingTime = 0
+            clearInterval(this.currTimeoutInterval)
+            this.startTimer(myPomos)
         }
 
         getInteraction(){
