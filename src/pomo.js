@@ -97,7 +97,8 @@ const { EmbedBuilder } = require('discord.js')
         }
 
         stopTimer(myPomos){
-            console.log("stop timer function")
+            clearInterval(this.currTimeoutInterval)
+            myPomos.shift()
         }
 
         getInteraction(){
