@@ -13,15 +13,15 @@ const myPomos = require('./pomoArray');
         }
 
         static getLongBreakTime(){
-            return (2 * 10 * 1000)
+            return (2 * 60 * 1000)
         }
 
         static getshortBreakTime(){
-            return (1 * 10 * 1000)
+            return (1 * 60 * 1000)
         }
 
         static getPomoTime(){
-            return (3 * 10 * 1000)
+            return (3 * 60 * 1000)
         }
     
         decrementPomo() {
@@ -111,7 +111,7 @@ const myPomos = require('./pomoArray');
 
         remainingInTimer(){
             var now = Date.now()
-            var millis = now - this.currStartTime
+            var millis = this.currEndTime - now
             var minutes = Math.floor(millis / 60000)
             var seconds = ((millis % 60000) / 1000).toFixed(0)
             return (seconds == 60 ? ((minutes + 1) + ":00") : minutes + ":" + (seconds < 10 ? "0" : "") + seconds)
