@@ -80,7 +80,9 @@ const myPomos = require('./pomoArray');
         }
         
         resumeTimer(myPomos){
-            // do remaining time in current timer then call startTimer
+            if(this.remainingTime == 0) return false
+            else {
+                // do remaining time in current timer then call startTimer
             var afterResumeEmbed = new EmbedBuilder()
             
             if((this.numOfPomos - 1) == 1){
@@ -100,6 +102,8 @@ const myPomos = require('./pomoArray');
                 this.interaction.followUp({embeds: [afterResumeEmbed]})
                 this.startTimer(myPomos)
             },(this.remainingTime))
+            return true
+            }
         }
 
         stopTimer(myPomos){
