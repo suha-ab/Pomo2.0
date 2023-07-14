@@ -12,7 +12,7 @@ Pomo is a time management bot based on The Pomodoro Technique (developed by [Fra
 Pomo was coded and developed using discordJS.
 
 ### How to Use
-To view Pomo's commands, simply type "!pomo help". The main Pomo command is "!pomo start" which begins 1 default pomodoro (four 25-minute intervals, 5-minute short breaks, and 15-minute long breaks).
+To view Pomo's commands, simply type "/help". The main Pomo command is "/start" which begins 1 default pomodoro (four 25-minute intervals, 5-minute short breaks, and 15-minute long breaks).
 
 ### Project Challenges and Lessons
 
@@ -23,6 +23,8 @@ Challenges:
 Lessons:
 1. Developed Pomo using Agile development processes.
 2. Used Linters for static code analysis.
+3. Expanded my knowledge on Javascript and its various libraries.
+4. Applied Recursive methods to tackle and solve problems.
 
 
 
