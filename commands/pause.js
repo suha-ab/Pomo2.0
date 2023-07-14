@@ -10,6 +10,14 @@ function createNoSuchPomoEmbed(interaction){
     return noSuchPomoEmbed
 }
 
+function createPomoPausedEmbed(interaction){
+    const noSuchPomoEmbed = new EmbedBuilder()
+    .setTitle(`${interaction.member.nickname}'s Pomo is already paused.`)
+    .setDescription(`Your pomo is already paused. Please use /resume to continue working.`)
+    .setColor('ec3946')
+    return noSuchPomoEmbed
+}
+
 function createPomoFoundEmbed(interaction){
     const pomoFoundEmbed = new EmbedBuilder()
     .setTitle(`${interaction.member.nickname}'s Pomo has been paused.`)
@@ -32,8 +40,9 @@ module.exports = {
             // 2. If It Exists, pause the timer. Else, return "no pomo exists" message
             for(pomo of myPomos){
                 if (pomo.interaction.user.username == interaction.user.username){
-                    pomo.pauseTimer()
-                    interaction.reply({embeds: [createPomoFoundEmbed(interaction)]})
+                    var resume = pomo.pauseTimer()
+                    if(resume) interaction.reply({embeds: [createPomoFoundEmbed(interaction)]})
+                    else interaction.reply({embeds: [createPomoPausedEmbed(interaction)]})
                     found = true
                     break
                 }

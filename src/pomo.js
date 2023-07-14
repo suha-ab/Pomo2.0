@@ -68,10 +68,15 @@ const myPomos = require('./pomoArray');
         }
 
         pauseTimer(){
+            var now = Date.now()
+
+            // already paused
+            if(this.remainingTime != 0) return false
             // update remainingTime, clear interval, send embed
             clearInterval(this.currTimeoutInterval)
-            this.remainingTime = this.currEndTime - this.currStartTime
+            this.remainingTime = this.currEndTime - now
             //console.log(`Remaining Time (${this.remainingTime}) = ${this.currEndTime} - ${this.currStartTime}`)
+            return true;
         }
         
         resumeTimer(myPomos){
@@ -110,8 +115,14 @@ const myPomos = require('./pomoArray');
         }
 
         remainingInTimer(){
-            var now = Date.now()
-            var millis = this.currEndTime - now
+            var millis = 0
+            // paused timer
+            if(this.remainingTime > 0 ) millis = this.remainingTime
+            else {
+                var now = Date.now()
+                millis = this.currEndTime - now
+            }
+           
             var minutes = Math.floor(millis / 60000)
             var seconds = ((millis % 60000) / 1000).toFixed(0)
             return (seconds == 60 ? ((minutes + 1) + ":00") : minutes + ":" + (seconds < 10 ? "0" : "") + seconds)
